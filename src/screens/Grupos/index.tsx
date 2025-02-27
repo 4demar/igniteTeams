@@ -5,6 +5,7 @@ import { CardGrupo } from '@components/CardGrupo';
 import { useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { ListEmpty } from '@components/ListEmpty';
+import { Button } from '@components/Button';
 
 export default function Grupos() {
   const [grupos, setGrupos] = useState<string[]>([])
@@ -17,6 +18,7 @@ export default function Grupos() {
         titulo='Turmas'
         subTitulo='joque com a sua turma'
       />
+
       <FlatList
         data={grupos}
         keyExtractor={(item) => item}
@@ -32,6 +34,9 @@ export default function Grupos() {
         showsVerticalScrollIndicator={false}
       />
 
+      <Button
+        titulo='Criar nova turma'
+      />
     </Container>
   );
 }
