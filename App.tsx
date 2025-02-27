@@ -4,6 +4,7 @@ import Grupos from '@screens/Grupos';
 import { Loading } from '@components/Loading';
 import { StatusBar } from 'react-native';
 import { theme } from 'src/theme';
+import { NovoGrupo } from '@screens/NovoGrupo';
 
 export default function App() {
 
@@ -16,7 +17,7 @@ export default function App() {
         backgroundColor='transparent'
         translucent
       />
-      {fontsLoaded ? <Grupos /> : <Loading />}
+      {fontsLoaded ? <NovoGrupo /> : <Loading />}
     </ThemeProvider>
   );
 }
