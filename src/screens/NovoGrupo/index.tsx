@@ -4,7 +4,7 @@ import { TextoDestaque } from "@components/TextoDestaque";
 import { Button } from "@components/Button";
 import { InputText } from "@components/InputText";
 
-export function NovoGrupo() {
+export default function NovoGrupo() {
 
   return (
     <Container>
