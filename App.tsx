@@ -10,6 +10,7 @@ import { theme } from 'src/theme';
 
 export default function App() {
 
+  //previnir o não carregamento da fonte
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
   return (

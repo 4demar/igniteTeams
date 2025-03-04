@@ -1,12 +1,10 @@
 import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 
-
 export type ButtonTypeStyleProps = 'PRIMARY' | 'SECONDARY'
 
 type props = {
   type: ButtonTypeStyleProps
-
 }
 
 export const Container = styled(TouchableOpacity) <props>`

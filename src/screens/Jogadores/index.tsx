@@ -1,16 +1,26 @@
 import { FlatList } from "react-native";
 import { useState } from "react";
 
-import { TextoDestaque } from "@components/TextoDestaque";
-import { ButtonIcon } from "@components/ButtonIcon";
-import { InputText } from "@components/InputText";
 import { Header } from "@components/Header";
+import { Button } from "@components/Button";
 import { Filtro } from "@components/FIltro";
+import { ListEmpty } from "@components/ListEmpty";
+import { InputText } from "@components/InputText";
+import { ButtonIcon } from "@components/ButtonIcon";
+import { CardJogador } from "@components/CardJogador";
+import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
+import { Enum_Prioridade } from "src/Utils";
 
 export default function Jogadores() {
   const [time, setTime] = useState('Time A')
-  const [jogadores, setJogadores] = useState([])
+  const [jogadores, setJogadores] = useState(['Jose', 'Pedro', 'Ana', 'Diego', 'Maria', 'João', 'Vini', 'Marcos'])
+
+
+  const removerJogador = (jogador: string) => {
+    const novaLista = jogadores.filter(x => x !== jogador)
+    setJogadores(novaLista)
+  }
 
   return (
     <Container>
@@ -33,10 +43,32 @@ export default function Jogadores() {
             />
           )}
           horizontal
+          showsHorizontalScrollIndicator={false}
         />
         <NumeroJogadores>{jogadores.length}</NumeroJogadores>
       </HeaderList>
 
+      <FlatList
+        data={jogadores}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <CardJogador
+            nome={item}
+            onRemove={() => removerJogador(item)}
+          />
+        )}
+        ListEmptyComponent={<ListEmpty mensagem={"Não há pessoas nesse time"} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 50 },
+          jogadores.length === 0 && { flex: 1 }
+        ]}
+      />
+
+      <Button
+        titulo="Remover Turma"
+        type={"SECONDARY"}
+      />
     </Container>
   )
 
