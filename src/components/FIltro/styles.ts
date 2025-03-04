@@ -7,7 +7,7 @@ export type filtroProps = {
 
 export const Container = styled(TouchableOpacity) <filtroProps>`
   ${({ theme, ativo }) => ativo && css`
-    border: 1px solid ${theme.COLORS.GRAY_700};
+    border: 1px solid ${theme.COLORS.GREEN_700};
   `} 
   border-radius: 4px;
   margin-right: 12px;

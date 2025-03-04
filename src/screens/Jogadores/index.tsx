@@ -1,11 +1,16 @@
-import { Header } from "@components/Header";
-import { Container, Form } from "./styles";
+import { FlatList } from "react-native";
+import { useState } from "react";
+
 import { TextoDestaque } from "@components/TextoDestaque";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { InputText } from "@components/InputText";
+import { Header } from "@components/Header";
 import { Filtro } from "@components/FIltro";
+import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
 
 export default function Jogadores() {
+  const [time, setTime] = useState('Time A')
+  const [jogadores, setJogadores] = useState([])
 
   return (
     <Container>
@@ -15,7 +20,23 @@ export default function Jogadores() {
         <InputText placeholder="Nome da pessoa" autoCorrect={false} />
         <ButtonIcon icon='add' />
       </Form>
-      <Filtro titulo="Time A" ativo />
+
+      <HeaderList>
+        <FlatList
+          data={['Time A', 'Time B']}
+          keyExtractor={item => item}
+          renderItem={({ item }) => (
+            <Filtro
+              titulo={item}
+              ativo={item === time}
+              onPress={() => setTime(item)}
+            />
+          )}
+          horizontal
+        />
+        <NumeroJogadores>{jogadores.length}</NumeroJogadores>
+      </HeaderList>
+
     </Container>
   )
 
