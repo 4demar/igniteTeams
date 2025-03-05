@@ -25,10 +25,12 @@ export default function Grupos() {
       setLoading(true)
       const data = await BuscarGrupos()
       setGrupos(data)
-      setLoading(false)
     } catch (error) {
       Alert.alert('Turmas', 'Não foi possivel buscar as turmas')
       console.log(error)
+    }
+    finally {
+      setLoading(false)
     }
   }
 

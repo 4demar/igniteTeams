@@ -79,10 +79,12 @@ export default function Jogadores() {
       setLoading(true)
       const data = await hookStorage.BuscarJogadoresPorGrupoETime(grupo, time)
       setJogadores(data)
-      setLoading(false)
     } catch (error) {
       Alert.alert('Jogadores', 'Não foi possivel carregar jogadores do time selecionado')
       console.log(error)
+    }
+    finally {
+      setLoading(false)
     }
   }
 
