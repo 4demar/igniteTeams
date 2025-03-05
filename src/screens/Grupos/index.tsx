@@ -6,10 +6,15 @@ import { useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Grupos() {
   const [grupos, setGrupos] = useState<string[]>([])
+  const navigation = useNavigation()
 
+  const handleNovoGrupo = () => {
+    navigation.navigate('novoGrupo')
+  }
 
   return (
     <Container>
@@ -36,6 +41,7 @@ export default function Grupos() {
 
       <Button
         titulo='Criar nova turma'
+        onPress={handleNovoGrupo}
       />
     </Container>
   );

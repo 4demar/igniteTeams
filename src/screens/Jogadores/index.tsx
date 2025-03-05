@@ -11,15 +11,21 @@ import { CardJogador } from "@components/CardJogador";
 import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
 import { Enum_Prioridade } from "src/Utils";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Jogadores() {
   const [time, setTime] = useState('Time A')
   const [jogadores, setJogadores] = useState(['Jose', 'Pedro', 'Ana', 'Diego', 'Maria', 'João', 'Vini', 'Marcos'])
-
+  const navigation = useNavigation()
 
   const removerJogador = (jogador: string) => {
     const novaLista = jogadores.filter(x => x !== jogador)
     setJogadores(novaLista)
+  }
+
+  const teste = () => {
+
+    navigation.navigate('grupos')
   }
 
   return (
