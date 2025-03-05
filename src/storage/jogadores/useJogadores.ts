@@ -1,13 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppError } from "@utils/appError";
 import { JogadoresDTO } from "./jogadoresDto";
-
-const KEY_STORAGE = '@igniteTeams:jogadores'
+import { KEY_JOGADORES } from "@utils/appConfig";
 
 export function useJogadores() {
   async function BuscarJogadoresNoGrupo(nomeGrupo: string) {
     try {
-      const storage = await AsyncStorage.getItem(`${KEY_STORAGE}-${nomeGrupo}`)
+      const storage = await AsyncStorage.getItem(`${KEY_JOGADORES}-${nomeGrupo}`)
 
       const jogadores: JogadoresDTO[] = storage ? JSON.parse(storage) : []
       return jogadores;
@@ -28,7 +27,7 @@ export function useJogadores() {
       }
       const storage = JSON.stringify([...listaJogadores, jogador])
 
-      await AsyncStorage.setItem(`${KEY_STORAGE}-${nomeGrupo}`, storage)
+      await AsyncStorage.setItem(`${KEY_JOGADORES}-${nomeGrupo}`, storage)
 
     } catch (error) {
       throw error;
@@ -53,7 +52,7 @@ export function useJogadores() {
 
       const filtro = storage.filter(j => j.nome !== nomeJogador)
 
-      await AsyncStorage.setItem(`${KEY_STORAGE}-${nomeGrupo}`, JSON.stringify(filtro))
+      await AsyncStorage.setItem(`${KEY_JOGADORES}-${nomeGrupo}`, JSON.stringify(filtro))
 
     } catch (error) {
       throw error;

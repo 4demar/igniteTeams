@@ -11,23 +11,27 @@ import { ButtonIcon } from "@components/ButtonIcon";
 import { CardJogador } from "@components/CardJogador";
 import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
-import { Enum_Prioridade } from "@utils/index";
+import { Enum_Prioridade } from "@utils/appEnum";
 import { JogadoresDTO } from "@storage/jogadores/jogadoresDto";
 import { useJogadores } from "@storage/jogadores/useJogadores";
 import { AppError } from "@utils/appError";
 import { useGrupos } from "@storage/grupos/useGrupos";
+import { Loading } from "@components/Loading";
 
 type RouteParams = {
   grupo: string
 }
 
 export default function Jogadores() {
+  const [loading, setLoading] = useState(true)
   const [jogador, setJogador] = useState('')
   const [time, setTime] = useState('Time A')
   const [jogadores, setJogadores] = useState<JogadoresDTO[]>([])
+
   const navigate = useNavigation()
   const route = useRoute()
   const { grupo } = route.params as RouteParams
+
   const hookStorage = useJogadores()
   const { RemoverGrupoPorNome } = useGrupos()
 
@@ -72,9 +76,10 @@ export default function Jogadores() {
 
   const carregarJogadoresPorTime = async () => {
     try {
-
+      setLoading(true)
       const data = await hookStorage.BuscarJogadoresPorGrupoETime(grupo, time)
       setJogadores(data)
+      setLoading(false)
     } catch (error) {
       Alert.alert('Jogadores', 'Não foi possivel carregar jogadores do time selecionado')
       console.log(error)
@@ -87,14 +92,14 @@ export default function Jogadores() {
       navigate.navigate('grupos')
     } catch (error) {
       console.log(error)
-      Alert.alert('Remover grupos', 'Não foi possivel remover o grupo')
+      Alert.alert('Remover turma', 'Não foi possivel remover a turma')
     }
   }
 
   const handleRemoverGrupo = async () => {
     Alert.alert(
-      'Remover grupos',
-      'Deseja remover o grupo?',
+      'Remover turma',
+      'Deseja remover a turma?',
       [
         { text: 'Não', style: 'cancel' },
         { text: 'Sim', onPress: () => removerGrupo() },
@@ -140,22 +145,25 @@ export default function Jogadores() {
         <NumeroJogadores>{jogadores.length}</NumeroJogadores>
       </HeaderList>
 
-      <FlatList
-        data={jogadores}
-        keyExtractor={item => item.nome}
-        renderItem={({ item }) => (
-          <CardJogador
-            nome={item.nome}
-            onRemove={() => removerJogador(item.nome)}
-          />
-        )}
-        ListEmptyComponent={<ListEmpty mensagem={"Não há pessoas nesse time"} />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 50 },
-          jogadores.length === 0 && { flex: 1 }
-        ]}
-      />
+      {loading ? <Loading /> :
+        <FlatList
+          data={jogadores}
+          keyExtractor={item => item.nome}
+          renderItem={({ item }) => (
+            <CardJogador
+              nome={item.nome}
+              onRemove={() => removerJogador(item.nome)}
+            />
+          )}
+          ListEmptyComponent={<ListEmpty mensagem={"Não há pessoas nesse time"} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 50 },
+            jogadores.length === 0 && { flex: 1 }
+          ]}
+        />
+
+      }
 
       <Button
         titulo="Remover Turma"

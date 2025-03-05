@@ -1,5 +1,5 @@
 import { TouchableOpacityProps } from "react-native";
-import { Enum_Prioridade } from "@utils/index";
+import { Enum_Prioridade } from "@utils/appEnum";
 import { Container, Icon } from "./styles";
 import { MaterialIcons } from '@expo/vector-icons'
 

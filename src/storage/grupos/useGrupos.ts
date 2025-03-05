@@ -1,8 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { KEY_GRUPOS, KEY_JOGADORES } from "@utils/appConfig";
 import { AppError } from "@utils/appError";
-
-const KEY_GRUPOS = '@igniteTeams:grupos'
-const KEY_JOGADORES = '@igniteTeams:jogadores'
 
 export function useGrupos() {
   async function BuscarGrupos() {
