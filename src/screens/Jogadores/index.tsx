@@ -11,27 +11,27 @@ import { CardJogador } from "@components/CardJogador";
 import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
 import { Enum_Prioridade } from "src/Utils";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+
+type RouteParams = {
+  grupo: string
+}
 
 export default function Jogadores() {
   const [time, setTime] = useState('Time A')
   const [jogadores, setJogadores] = useState(['Jose', 'Pedro', 'Ana', 'Diego', 'Maria', 'João', 'Vini', 'Marcos'])
-  const navigation = useNavigation()
+  const route = useRoute()
+  const { grupo } = route.params as RouteParams
 
   const removerJogador = (jogador: string) => {
     const novaLista = jogadores.filter(x => x !== jogador)
     setJogadores(novaLista)
   }
 
-  const teste = () => {
-
-    navigation.navigate('grupos')
-  }
-
   return (
     <Container>
       <Header showBackButton />
-      <TextoDestaque titulo="Nome da turma" subTitulo="adicione a galera e separe os times" />
+      <TextoDestaque titulo={grupo} subTitulo="adicione a galera e separe os times" />
       <Form>
         <InputText placeholder="Nome da pessoa" autoCorrect={false} />
         <ButtonIcon icon='add' />
