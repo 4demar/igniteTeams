@@ -1,6 +1,6 @@
 import { TouchableOpacityProps } from "react-native"
 import { ButtonTypeStyleProps, Container, Texto } from "./styles";
-import { Enum_Prioridade } from "src/Utils";
+import { Enum_Prioridade } from "@utils/index";
 
 
 type props = TouchableOpacityProps & {

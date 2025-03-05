@@ -5,13 +5,33 @@ import { Button } from "@components/Button";
 import { InputText } from "@components/InputText";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { useGrupos } from "@storage/grupos/useGrupos";
+import { AppError } from "@utils/appError";
+import { Alert } from "react-native";
 
 export default function NovoGrupo() {
   const [nomeGrupo, setNomeGrupo] = useState('')
   const navigation = useNavigation()
+  const { CriarGrupo } = useGrupos()
 
-  const handleCriarGrupo = () => {
-    navigation.navigate('jogadores', { grupo: nomeGrupo })
+  const handleCriarGrupo = async () => {
+    try {
+      if (nomeGrupo.trim().length === 0) {
+        return Alert.alert('Novo grupo', 'Informe o nome da turma.')
+      }
+
+      await CriarGrupo(nomeGrupo)
+      navigation.navigate('jogadores', { grupo: nomeGrupo })
+
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Novo grupo', error.message)
+      }
+      else {
+        Alert.alert('Novo grupo', 'Não foi possivel criar novo grupo')
+        console.log(error)
+      }
+    }
   }
 
   return (

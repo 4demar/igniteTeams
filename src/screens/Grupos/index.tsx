@@ -1,20 +1,39 @@
+import { useState, useCallback } from 'react';
+import { FlatList } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useGrupos } from '@storage/grupos/useGrupos';
 import { Header } from '@components/Header';
-import { Container, Titulo } from './styles';
 import { TextoDestaque } from '@components/TextoDestaque';
 import { CardGrupo } from '@components/CardGrupo';
-import { useState } from 'react';
-import { FlatList, Text } from 'react-native';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { Container } from './styles';
 
 export default function Grupos() {
   const [grupos, setGrupos] = useState<string[]>([])
   const navigation = useNavigation()
+  const { BuscarGrupos } = useGrupos()
 
   const handleNovoGrupo = () => {
     navigation.navigate('novoGrupo')
   }
+
+  const carregarGrupos = async () => {
+    try {
+      const data = await BuscarGrupos()
+      setGrupos(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const abrirGrupo = (grupo: string) => {
+    navigation.navigate('jogadores', { grupo })
+  }
+
+  useFocusEffect(useCallback(() => {
+    carregarGrupos();
+  }, []))
 
   return (
     <Container>
@@ -30,6 +49,7 @@ export default function Grupos() {
         renderItem={({ item }) => (
           <CardGrupo
             titulo={item}
+            onPress={() => abrirGrupo(item)}
           />
         )}
         contentContainerStyle={grupos.length === 0 && { flex: 1 }}

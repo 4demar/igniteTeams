@@ -1,6 +1,6 @@
 import { ButtonIcon } from "@components/ButtonIcon"
 import { Container, Icon, Nome } from "./styles"
-import { Enum_Prioridade } from "src/Utils"
+import { Enum_Prioridade } from "@utils/index"
 
 type props = {
   nome: string

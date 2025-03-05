@@ -1,5 +1,6 @@
-import { FlatList } from "react-native";
-import { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Alert, FlatList, TextInput } from "react-native";
+import { useEffect, useRef, useState } from "react";
 
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
@@ -10,31 +11,116 @@ import { ButtonIcon } from "@components/ButtonIcon";
 import { CardJogador } from "@components/CardJogador";
 import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
-import { Enum_Prioridade } from "src/Utils";
-import { useRoute } from "@react-navigation/native";
+import { Enum_Prioridade } from "@utils/index";
+import { JogadoresDTO } from "@storage/jogadores/jogadoresDto";
+import { useJogadores } from "@storage/jogadores/useJogadores";
+import { AppError } from "@utils/appError";
+import { useGrupos } from "@storage/grupos/useGrupos";
 
 type RouteParams = {
   grupo: string
 }
 
 export default function Jogadores() {
+  const [jogador, setJogador] = useState('')
   const [time, setTime] = useState('Time A')
-  const [jogadores, setJogadores] = useState(['Jose', 'Pedro', 'Ana', 'Diego', 'Maria', 'João', 'Vini', 'Marcos'])
+  const [jogadores, setJogadores] = useState<JogadoresDTO[]>([])
+  const navigate = useNavigation()
   const route = useRoute()
   const { grupo } = route.params as RouteParams
+  const hookStorage = useJogadores()
+  const { RemoverGrupoPorNome } = useGrupos()
 
-  const removerJogador = (jogador: string) => {
-    const novaLista = jogadores.filter(x => x !== jogador)
-    setJogadores(novaLista)
+  const refJogador = useRef<TextInput>(null)
+
+  const removerJogador = async (jogador: string) => {
+    try {
+      await hookStorage.RemoverJogadorPorGrupoETime(jogador, grupo)
+      carregarJogadoresPorTime()
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Remover jogador', 'Não foi possivel remover o jogador')
+    }
   }
+
+  const handleAdicionarJogador = async () => {
+    if (jogador.trim().length === 0)
+      return Alert.alert('Novo jogador', 'Informe o nome do jogador para adicionar')
+
+    const novoJogador: JogadoresDTO = {
+      nome: jogador,
+      time: time
+    }
+
+    try {
+
+      await hookStorage.InserirJogadoresNoGrupo(novoJogador, grupo)
+      carregarJogadoresPorTime()
+      refJogador.current?.blur()
+      setJogador('')
+
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Novo jogador', error.message)
+      }
+      else {
+        Alert.alert('Novo jogador', 'Não foi possivel adicionar jogador')
+        console.log(error)
+      }
+    }
+  }
+
+  const carregarJogadoresPorTime = async () => {
+    try {
+
+      const data = await hookStorage.BuscarJogadoresPorGrupoETime(grupo, time)
+      setJogadores(data)
+    } catch (error) {
+      Alert.alert('Jogadores', 'Não foi possivel carregar jogadores do time selecionado')
+      console.log(error)
+    }
+  }
+
+  const removerGrupo = async () => {
+    try {
+      await RemoverGrupoPorNome(grupo)
+      navigate.navigate('grupos')
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Remover grupos', 'Não foi possivel remover o grupo')
+    }
+  }
+
+  const handleRemoverGrupo = async () => {
+    Alert.alert(
+      'Remover grupos',
+      'Deseja remover o grupo?',
+      [
+        { text: 'Não', style: 'cancel' },
+        { text: 'Sim', onPress: () => removerGrupo() },
+      ]
+    )
+  }
+
+  useEffect(() => {
+    carregarJogadoresPorTime()
+  }, [time])
 
   return (
     <Container>
       <Header showBackButton />
       <TextoDestaque titulo={grupo} subTitulo="adicione a galera e separe os times" />
       <Form>
-        <InputText placeholder="Nome da pessoa" autoCorrect={false} />
-        <ButtonIcon icon='add' />
+        <InputText
+          inputRef={refJogador}
+          placeholder="Nome da pessoa"
+          autoCorrect={false}
+          value={jogador}
+          onChangeText={setJogador}
+          onSubmitEditing={handleAdicionarJogador}
+          returnKeyType="done"
+        />
+        <ButtonIcon icon='add' onPress={handleAdicionarJogador} />
       </Form>
 
       <HeaderList>
@@ -56,11 +142,11 @@ export default function Jogadores() {
 
       <FlatList
         data={jogadores}
-        keyExtractor={item => item}
+        keyExtractor={item => item.nome}
         renderItem={({ item }) => (
           <CardJogador
-            nome={item}
-            onRemove={() => removerJogador(item)}
+            nome={item.nome}
+            onRemove={() => removerJogador(item.nome)}
           />
         )}
         ListEmptyComponent={<ListEmpty mensagem={"Não há pessoas nesse time"} />}
@@ -74,6 +160,7 @@ export default function Jogadores() {
       <Button
         titulo="Remover Turma"
         type={"SECONDARY"}
+        onPress={handleRemoverGrupo}
       />
     </Container>
   )
