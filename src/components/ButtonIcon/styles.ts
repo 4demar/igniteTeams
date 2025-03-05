@@ -7,7 +7,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 type props = {
   type: Enum_Prioridade
-
 }
 
 export const Container = styled(TouchableOpacity)`
@@ -15,7 +14,6 @@ export const Container = styled(TouchableOpacity)`
   height: 56px;
   justify-content: center;
   align-items: center;
-  /* margin: ; */
 `
 
 export const Icon = styled(MaterialIcons).attrs<props>(({ theme, type }) => ({
