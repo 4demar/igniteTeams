@@ -1,3 +1,5 @@
+import { baseTheme } from "./baseTheme";
+
 export const theme = {
   COLORS: {
     WHITE: '#FFFFFF',
@@ -26,4 +28,23 @@ export const theme = {
     LG: 18,
     XL: 24
   }
+};
+
+export const lightTheme = { ...baseTheme };
+
+export const darkTheme = {
+  ...baseTheme,
+  colors: {
+    background: '#121214',
+    textPrimary: '#E1E1E6',
+    textSecondary: '#C4C4CC',
+    primary: '#FF9500',
+    secondary: '#007AFF',
+    border: '#333333',
+    card: '#1C1C1E',
+    modal: 'rgba(255, 255, 255, 0.5)',
+    inputBackground: '#3A3A3C',
+    inputBorder: '#636366',
+    inputPlaceholder: '#636366',
+  },
 };
