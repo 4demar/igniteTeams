@@ -10,7 +10,7 @@ export const Titulo = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.XL}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.textPrimary};
   `}
 `
 
@@ -19,6 +19,6 @@ export const SubTitulo = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.MD}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};
-    color: ${theme.COLORS.GRAY_300}; 
+    color: ${theme.COLORS.textSecondary}; 
   `}
 `

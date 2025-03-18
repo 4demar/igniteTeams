@@ -5,14 +5,14 @@ import { Button } from "@components/Button";
 import { InputText } from "@components/InputText";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { useGrupos } from "@storage/grupos/useGrupos";
+import { storageGrupos } from "@storage/storageGrupos";
 import { AppError } from "@utils/appError";
 import { Alert } from "react-native";
 
 export default function NovoGrupo() {
   const [nomeGrupo, setNomeGrupo] = useState('')
   const navigation = useNavigation()
-  const { CriarGrupo } = useGrupos()
+  const { CriarGrupo } = storageGrupos()
 
   const handleCriarGrupo = async () => {
     try {

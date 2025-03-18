@@ -1,23 +1,42 @@
-import { Button } from "@components/Button";
-import { Container, Titulo, SubTitulo } from "./styles";
+import { Container, Card, ItemCard, ImgTheme } from "./styles";
+import { Filtro } from "@components/FIltro";
+import { useState } from "react";
+import themeLight from '@assets/themeLight.png'
+import themeDark from '@assets/themeDark.png'
+import { useTheme } from "src/hook/useTheme";
+import { Header } from "@components/Header";
+import { TextoDestaque } from "@components/TextoDestaque";
 
-function ConfigApp() {
+
+export function ConfigApp() {
+  const { isDarkMode, toggleTheme } = useTheme();
+
+  console.log('Thema => ', isDarkMode)
 
   return (
     <Container>
-      <Card>
-        <ItemCard>
-          <Image></Image>
-          <Titulo></Titulo>
-          <Button></Button>
-        </ItemCard>
-      </Card>
+      <Header showBackButton />
+      <TextoDestaque
+        titulo='Configurações'
+        subTitulo="Aplique as configurações de tela"
+      />
 
       <Card>
-        <ItemCard>
-          <Image></Image>
-          <Titulo></Titulo>
-          <Button></Button>
+        <ItemCard onPress={toggleTheme}>
+          <ImgTheme source={themeLight} />
+          <Filtro
+            titulo={'Light'}
+            ativo={!isDarkMode}
+
+          />
+        </ItemCard>
+
+        <ItemCard onPress={toggleTheme}>
+          <ImgTheme source={themeDark} />
+          <Filtro
+            titulo={'Dark'}
+            ativo={isDarkMode}
+          />
         </ItemCard>
       </Card>
     </Container>

@@ -6,7 +6,7 @@ export const Container = styled.View`
   width: 100%;
   height: 56px;
 
-  background-color: ${({ theme }) => theme.COLORS.GRAY_500};
+  background-color: ${({ theme }) => theme.COLORS.backgroundCard};
   border-radius: 6px;
 
   flex-direction: row;
@@ -21,13 +21,13 @@ export const Nome = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.MD}px;
-    color: ${theme.COLORS.GRAY_200};
+    color: ${theme.COLORS.textSecondary};
   `} 
 `;
 
 export const Icon = styled(MaterialIcons).attrs(({ theme }) => ({
   size: 24,
-  color: theme.COLORS.GRAY_200
+  color: theme.COLORS.textSecondary
 }))`
   margin-left: 16px;
   margin-right: 4px;

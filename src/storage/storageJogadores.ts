@@ -1,9 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppError } from "@utils/appError";
-import { JogadoresDTO } from "./jogadoresDto";
 import { KEY_JOGADORES } from "@utils/appConfig";
 
-export function useJogadores() {
+export type JogadoresDTO = {
+  nome: string
+  time: string
+}
+
+export function storageJogadores() {
   async function BuscarJogadoresNoGrupo(nomeGrupo: string) {
     try {
       const storage = await AsyncStorage.getItem(`${KEY_JOGADORES}-${nomeGrupo}`)

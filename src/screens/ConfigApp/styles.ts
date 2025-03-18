@@ -1,34 +1,27 @@
 
 
+import { TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.color.background} ;
-  padding: 24px;
+  background-color: ${({ theme }) => theme.COLORS.background} ;
+  padding: 8px 24px 24px 24px;
 `
 
-export const Titulo = styled.Text`
-  color: #fff;
-  font-size: 25px;
-  color: ${({ theme }) => theme.color.textPrimary} ;
+export const Card = styled.View`
+  margin-top: 24px;
+  flex-direction: row; 
+  justify-content: center;
+  gap: 16px;
 `
-
-export const SubTitulo = styled.Text`
-  color: #fff;
-  font-size: 25px;
-  color: ${({ theme }) => theme.color.textSecondary} ;
+export const ItemCard = styled(TouchableOpacity)`
+  flex-direction: column;
+  align-items: center;
 `
-
-export const Card = styled.Text`
-  color: #fff;
-  font-size: 25px;
-  color: ${({ theme }) => theme.color.textPrimary} ;
-`
-
-export const ItemCard = styled.Text`
-  color: #fff;
-  font-size: 25px;
-  color: ${({ theme }) => theme.color.textSecondary} ;
+export const ImgTheme = styled.Image`
+  margin-bottom: 8px;
+  width: 100px;
+  height: 120px;
 `

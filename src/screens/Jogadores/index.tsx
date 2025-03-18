@@ -1,7 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert, FlatList, TextInput } from "react-native";
 import { useEffect, useRef, useState } from "react";
-
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 import { Filtro } from "@components/FIltro";
@@ -11,12 +10,10 @@ import { ButtonIcon } from "@components/ButtonIcon";
 import { CardJogador } from "@components/CardJogador";
 import { TextoDestaque } from "@components/TextoDestaque";
 import { Container, Form, HeaderList, NumeroJogadores } from "./styles";
-import { Enum_Prioridade } from "@utils/appEnum";
-import { JogadoresDTO } from "@storage/jogadores/jogadoresDto";
-import { useJogadores } from "@storage/jogadores/useJogadores";
 import { AppError } from "@utils/appError";
-import { useGrupos } from "@storage/grupos/useGrupos";
 import { Loading } from "@components/Loading";
+import { JogadoresDTO, storageJogadores } from "@storage/storageJogadores";
+import { storageGrupos } from "@storage/storageGrupos";
 
 type RouteParams = {
   grupo: string
@@ -32,8 +29,8 @@ export default function Jogadores() {
   const route = useRoute()
   const { grupo } = route.params as RouteParams
 
-  const hookStorage = useJogadores()
-  const { RemoverGrupoPorNome } = useGrupos()
+  const hookStorage = storageJogadores()
+  const { RemoverGrupoPorNome } = storageGrupos()
 
   const refJogador = useRef<TextInput>(null)
 
@@ -141,6 +138,7 @@ export default function Jogadores() {
               onPress={() => setTime(item)}
             />
           )}
+          contentContainerStyle={{ gap: 4 }}
           horizontal
           showsHorizontalScrollIndicator={false}
         />

@@ -12,7 +12,7 @@ export const Container = styled(TouchableOpacity) <props>`
   min-height: 56px;
   max-height: 56px;
   background-color: ${({ theme, type }) => (
-    type === 'PRIMARY' ? theme.COLORS.GREEN_700 : theme.COLORS.RED_DARK
+    type === 'PRIMARY' ? theme.COLORS.greenDark : theme.COLORS.redDark
   )};
   border-radius: 6px;
   justify-content: center;
@@ -23,6 +23,6 @@ export const Texto = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.MD}px;
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.white};
   `};
 `;

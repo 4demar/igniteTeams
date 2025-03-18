@@ -1,23 +1,5 @@
-import { baseTheme } from "./baseTheme";
 
-export const theme = {
-  COLORS: {
-    WHITE: '#FFFFFF',
-
-    GREEN_700: '#00875F',
-    GREEN_500: '#00B37E',
-
-    RED: '#F75A68',
-    RED_DARK: '#AA2834',
-
-    GRAY_700: '#121214',
-    GRAY_600: '#202024',
-    GRAY_500: '#29292E',
-    GRAY_400: '#323238',
-    GRAY_300: '#7C7C8A',
-    GRAY_200: '#C4C4CC',
-    GRAY_100: '#E1E1E6'
-  },
+export const baseTheme = {
   FONT_FAMILY: {
     REGULAR: 'Roboto_400Regular',
     BOLD: 'Roboto_700Bold'
@@ -30,21 +12,52 @@ export const theme = {
   }
 };
 
-export const lightTheme = { ...baseTheme };
+// theme.ts
+export const lightTheme = {
+  ...baseTheme,
+  COLORS: {
+    dark: '#000',
+    white: '#fff',
+    background: '#E1E1E6',
+    backgroundCard: '#C4C4CC',
+    textPrimary: '#121214',
+    textSecondary: '#202024',
+    primary: '#007AFF',
+    secondary: '#FF9500',
+    green: '#00B37E',
+    greenDark: '#00875F',
+    red: '#F75A68',
+    redDark: '#AA2834',
+    border: '#D1D1D6',
+    modal: 'rgba(0, 0, 0, 0.5)',
+    inputBackground: '#fff',
+    inputBorder: '#C7C7CC',
+    inputPlaceholder: '#C7C7CC',
+  },
+};
 
 export const darkTheme = {
   ...baseTheme,
-  colors: {
-    background: '#121214',
+  COLORS: {
+    dark: '#000',
+    white: '#fff',
+    background: '#202024',
+    backgroundCard: '#29292E',
     textPrimary: '#E1E1E6',
     textSecondary: '#C4C4CC',
-    primary: '#FF9500',
-    secondary: '#007AFF',
-    border: '#333333',
-    card: '#1C1C1E',
-    modal: 'rgba(255, 255, 255, 0.5)',
-    inputBackground: '#3A3A3C',
+    primary: '#0A84FF',
+    secondary: '#FF9F0A',
+    green: '#00B37E',
+    greenDark: '#00875F',
+    red: '#FF453A',
+    redDark: '#BF2D26',
+    border: '#4D4D4D',
+    modal: 'rgba(255, 255, 255, 0.2)',
+    inputBackground: '#121214',
     inputBorder: '#636366',
-    inputPlaceholder: '#636366',
+    inputPlaceholder: '#8E8E93',
   },
 };
+
+// export type ThemeType = typeof lightTheme;
+

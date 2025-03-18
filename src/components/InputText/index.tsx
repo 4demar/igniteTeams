@@ -13,7 +13,7 @@ export function InputText({ inputRef, ...rest }: props) {
   return (
     <Container
       ref={inputRef}
-      placeholderTextColor={COLORS.GRAY_300}
+      placeholderTextColor={COLORS.inputPlaceholder}
       {...rest}
     />
   )

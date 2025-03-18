@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ConfigApp } from '@screens/ConfigApp';
 import Grupos from "@screens/Grupos";
 import Jogadores from "@screens/Jogadores";
 import NovoGrupo from "@screens/NovoGrupo";
@@ -25,6 +26,10 @@ export function AppRoutes() {
       <Screen
         name='jogadores'
         component={Jogadores}
+      />
+      <Screen
+        name='configApp'
+        component={ConfigApp}
       />
     </Navigator>
   )

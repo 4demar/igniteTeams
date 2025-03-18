@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Alert, FlatList } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { useGrupos } from '@storage/grupos/useGrupos';
 import { Header } from '@components/Header';
 import { TextoDestaque } from '@components/TextoDestaque';
 import { CardGrupo } from '@components/CardGrupo';
@@ -9,12 +8,13 @@ import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
 import { Container } from './styles';
 import { Loading } from '@components/Loading';
+import { storageGrupos } from '@storage/storageGrupos';
 
 export default function Grupos() {
   const [loading, setLoading] = useState(true)
   const [grupos, setGrupos] = useState<string[]>([])
   const navigation = useNavigation()
-  const { BuscarGrupos } = useGrupos()
+  const { BuscarGrupos } = storageGrupos()
 
   const handleNovoGrupo = () => {
     navigation.navigate('novoGrupo')

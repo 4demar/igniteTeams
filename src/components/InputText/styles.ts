@@ -10,9 +10,9 @@ export const Container = styled(TextInput)`
   padding: 16px;
 
   ${({ theme }) => css`
-    background-color: ${theme.COLORS.GRAY_700};
+    background-color: ${theme.COLORS.inputBackground};
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.MD}px;
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.textPrimary};
   `};
 `;

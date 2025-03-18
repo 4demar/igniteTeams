@@ -1,6 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { BackButton, BackIcon, Container, Logo } from "./styles";
+import { BackButton, BackIcon, Container, Content, Logo, SettingsButton, SettingsIcon } from "./styles";
 import logoImg from '@assets/logo.png'
+import { AntDesign } from '@expo/vector-icons'
+import { ButtonIcon } from "@components/ButtonIcon";
+import { View } from "react-native";
 
 type props = {
   showBackButton?: boolean
@@ -13,14 +16,27 @@ export function Header({ showBackButton = false }: props) {
     navigation.navigate('grupos')
   }
 
+  const handleConfig = () => {
+    navigation.navigate('configApp')
+  }
+
   return (
     <Container>
-      {showBackButton &&
-        <BackButton onPress={handleVoltar}>
-          <BackIcon />
-        </BackButton>
+      {!showBackButton &&
+        <SettingsButton onPress={handleConfig}>
+          <SettingsIcon />
+        </SettingsButton>
       }
-      <Logo source={logoImg} />
+      <Content>
+        {showBackButton &&
+          <BackButton onPress={handleVoltar}>
+            <BackIcon />
+          </BackButton>
+        }
+
+        <Logo source={logoImg} />
+
+      </Content>
     </Container>
   )
 

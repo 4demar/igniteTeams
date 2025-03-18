@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KEY_GRUPOS, KEY_JOGADORES } from "@utils/appConfig";
 import { AppError } from "@utils/appError";
 
-export function useGrupos() {
+export function storageGrupos() {
   async function BuscarGrupos() {
     try {
       const storage = await AsyncStorage.getItem(KEY_GRUPOS)

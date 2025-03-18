@@ -7,10 +7,9 @@ export type filtroProps = {
 
 export const Container = styled(TouchableOpacity) <filtroProps>`
   ${({ theme, ativo }) => ativo && css`
-    border: 1px solid ${theme.COLORS.GREEN_700};
+    border: 1px solid ${theme.COLORS.greenDark};
   `} 
   border-radius: 4px;
-  margin-right: 12px;
   height: 38px;
   width: 70px;
   align-items: center;
@@ -22,6 +21,6 @@ export const Titulo = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.SM}px;
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.textPrimary};
   `} 
 `;

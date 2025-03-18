@@ -4,8 +4,8 @@ import styled, { css } from "styled-components/native";
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.COLORS.GRAY_600} ;
-  padding: 24px;
+  background-color: ${({ theme }) => theme.COLORS.background} ;
+  padding: 8px 24px 24px 24px;
 `
 
 export const Form = styled.View`
@@ -25,7 +25,7 @@ export const HeaderList = styled.View`
 
 export const NumeroJogadores = styled.Text`
   ${({ theme }) => css`
-    color: ${theme.COLORS.GRAY_200};
+    color: ${theme.COLORS.textSecondary};
     font-size: ${theme.FONT_SIZE.SM}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
   `} 
